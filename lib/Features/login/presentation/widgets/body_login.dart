@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoping/Features/home/presentation/HomeScreen.dart';
+import 'package:shoping/Features/signup/presentation/SignUp__screen.dart';
 
 class BodyLogin extends StatelessWidget {
   const BodyLogin({
@@ -38,7 +39,7 @@ class BodyLogin extends StatelessWidget {
             hintText: 'Email',
             hintStyle: TextStyle(color: Colors.white),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black), // لون الحدود
+              borderSide: BorderSide(color: Colors.black),
             ),
           ),
           style: TextStyle(color: Colors.white),
@@ -70,14 +71,14 @@ class BodyLogin extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => HomeScreen(),
+                builder: (context) => const HomeScreen(),
               ),
             );
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0), // تعيين حواف مدورة
+              borderRadius: BorderRadius.circular(15.0),
             ),
             padding: const EdgeInsets.symmetric(vertical: 15),
             minimumSize: const Size(double.infinity, 0),
@@ -90,6 +91,25 @@ class BodyLogin extends StatelessWidget {
             ),
           ),
         ),
+        Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+
+            children: [
+              const Text("I don't have an account!"),
+              TextButton(onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SignUp(),
+                  ),
+                );
+              },
+                  child: const Text("SignUp")),
+            ],
+          ),
+        ),
+
       ],
     );
   }
