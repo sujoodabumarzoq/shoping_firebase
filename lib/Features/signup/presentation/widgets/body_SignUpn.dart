@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoping/Features/login/presentation/login__screen.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:shoping/Features/signup/manger/singup_cubit.dart';
 
 class BodySignUp extends StatefulWidget {
   const BodySignUp({
@@ -13,23 +13,16 @@ class BodySignUp extends StatefulWidget {
 }
 
 class _BodySignUpState extends State<BodySignUp> {
-  TextEditingController username = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController confirmpassword = TextEditingController();
-  GlobalKey<FormState> formState = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formState,
-
+      key: SingupCubit.get(context).formState,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
         //mainAxisAlignment: MainAxisAlignment.center,
         children: [
-           const Center(
+          const Center(
             child: Row(
               children: [
                 Text("        Shoping",
@@ -55,8 +48,7 @@ class _BodySignUpState extends State<BodySignUp> {
               }
               return null;
             },
-            controller: email,
-
+            controller: SingupCubit.get(context).email,
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.all(15.0),
               // تعيين الهوامش الداخلية بقيمة 15
@@ -79,7 +71,7 @@ class _BodySignUpState extends State<BodySignUp> {
               }
               return null;
             },
-            controller: password,
+            controller: SingupCubit.get(context).password,
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.all(15.0),
               hintText: 'Password',
@@ -100,7 +92,7 @@ class _BodySignUpState extends State<BodySignUp> {
               }
               return null;
             },
-            controller: confirmpassword,
+            controller: SingupCubit.get(context).confirmpassword,
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.all(15.0),
               hintText: 'Confirm password',
@@ -115,72 +107,8 @@ class _BodySignUpState extends State<BodySignUp> {
             height: 20,
           ),
           ElevatedButton(
-            // onPressed: () {
-            //
-            //   Navigator.pushReplacement(
-            //     context,
-            //     MaterialPageRoute(
-            //       builder: (context) => const HomeScreen(),
-            //     ),
-            //   );
-            // },
-            onPressed: () async {
-              if (formState.currentState!.validate()) {
-                try {
-                  final credential = await FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
-                    email: email.text,
-                    password: password.text,
-                  );
-                  if (credential.user!.emailVerified) {
-                    Navigator.of(context).pushReplacementNamed("Home");
-                  } else {
-                    FirebaseAuth.instance.currentUser!
-                        .sendEmailVerification();
-                    AwesomeDialog(
-                      context: context,
-                      dialogType: DialogType.error,
-                      animType: AnimType.rightSlide,
-                      title: 'Check email',
-                      desc:
-                      'Verify your e-mail by clicking on the link in the e-mail................',
-                      // btnCancelOnPress: () {},
-                      // btnOkOnPress: () {},
-                    )
-                      ..show();
-                  }
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == 'weak-password') {
-                    AwesomeDialog(
-                      context: context,
-                      dialogType: DialogType.error,
-                      animType: AnimType.rightSlide,
-                      title: 'Password weak',
-                      desc: 'The password provided is too weak..............',
-                      // btnCancelOnPress: () {},
-                      // btnOkOnPress: () {},
-                    )
-                      ..show();
-                    print('The password provided is too weak.');
-                  } else if (e.code == 'email-already-in-use') {
-                    AwesomeDialog(
-                      context: context,
-                      dialogType: DialogType.error,
-                      animType: AnimType.rightSlide,
-                      title: 'EmailAlreadyinuse',
-                      desc:
-                      'The account already exists for that email...............',
-                      // btnCancelOnPress: () {},
-                      // btnOkOnPress: () {},
-                    )
-                      ..show();
 
-                    print('The account already exists for that email.');
-                  }
-                } catch (e) {
-                  print(e);
-                }
-              }
+            onPressed: () async {
             },
 
             style: ElevatedButton.styleFrom(
@@ -202,8 +130,12 @@ class _BodySignUpState extends State<BodySignUp> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("I have an account!", style: TextStyle(
-      fontSize: 17,),),
+              const Text(
+                "I have an account!",
+                style: TextStyle(
+                  fontSize: 17,
+                ),
+              ),
               TextButton(
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -213,8 +145,10 @@ class _BodySignUpState extends State<BodySignUp> {
                       ),
                     );
                   },
-                  child: const Text("Login", style: TextStyle(
-                    fontSize: 20,))),
+                  child: const Text("Login",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ))),
             ],
           ),
         ],

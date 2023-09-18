@@ -2,8 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoping/Features/home/presentation/HomeScreen.dart';
+import 'package:shoping/Features/login/manger/login_cubit.dart';
 import 'package:shoping/Features/login/presentation/login__screen.dart';
+import 'package:shoping/Features/signup/manger/singup_cubit.dart';
 import 'package:shoping/firebase_options.dart';
 
 Future<void> main() async {
@@ -41,15 +44,28 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) {
+          return SingupCubit()..SingupState(context);
+        },
+        ),
+        BlocProvider(create: (context) {
+          return LoginCubit()..LoginsucState(context);
+        },
+        ),
+
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          useMaterial3: true,
+        ),
+        home: (FirebaseAuth.instance.currentUser != null &&
+            FirebaseAuth.instance.currentUser!.emailVerified)
+            ? const HomeScreen()
+            : const LoginScreen(),
       ),
-      home: (FirebaseAuth.instance.currentUser != null &&
-          FirebaseAuth.instance.currentUser!.emailVerified)
-          ? const HomeScreen()
-          : const LoginScreen(),
     );
   }
 }

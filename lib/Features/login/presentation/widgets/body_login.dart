@@ -1,9 +1,6 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shoping/Features/login/manger/login_cubit.dart';
 import 'package:shoping/Features/signup/presentation/SignUp__screen.dart';
-
-import '../../../home/presentation/HomeScreen.dart';
 
 class BodyLogin extends StatefulWidget {
   const BodyLogin({
@@ -15,14 +12,10 @@ class BodyLogin extends StatefulWidget {
 }
 
 class _BodyLoginState extends State<BodyLogin> {
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  GlobalKey<FormState> formState = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formState,
+      key: LoginCubit.get(context).formState,
       child: Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,7 +41,7 @@ class _BodyLoginState extends State<BodyLogin> {
             height: 20,
           ),
           TextFormField(
-            controller: email,
+            controller: LoginCubit.get(context).email,
             validator: (val) {
               if (val == "") {
                 return " email not empty";
@@ -69,7 +62,7 @@ class _BodyLoginState extends State<BodyLogin> {
             height: 20,
           ),
           TextFormField(
-            controller: password,
+            controller: LoginCubit.get(context).password,
             validator: (val) {
               if (val == "") {
                 return " password not empty";
@@ -96,64 +89,7 @@ class _BodyLoginState extends State<BodyLogin> {
           ),
           ElevatedButton(
             onPressed: () async {
-              if (formState.currentState!.validate()) {
-                try {
-                  final credential = await FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: email.text, password: password.text);
-
-                  if (credential.user!.emailVerified) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
-                      ),
-                    );
-                    // Navigator.of(context)
-                    //     .push(MaterialPageRoute(builder: (context) {
-                    //   return const HomeScreen();
-                    //     },));
-                  } else {
-                    AwesomeDialog(
-                      context: context,
-                      dialogType: DialogType.error,
-                      animType: AnimType.rightSlide,
-                      title: 'Check email',
-                      desc:
-                          'Verify your e-mail by clicking on the link in the e-mail................',
-                      // btnCancelOnPress: () {},
-                      // btnOkOnPress: () {},
-                    )..show();
-                  }
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == 'user-not-found') {
-                    AwesomeDialog(
-                      context: context,
-                      dialogType: DialogType.error,
-                      animType: AnimType.rightSlide,
-                      title: 'Email not found',
-                      desc: 'No user found for that email...............',
-                      // btnCancelOnPress: () {},
-                      // btnOkOnPress: () {},
-                    )..show();
-
-                    print('No user found for that email.');
-                  } else if (e.code == 'wrong-password') {
-                    AwesomeDialog(
-                      context: context,
-                      dialogType: DialogType.error,
-                      animType: AnimType.rightSlide,
-                      title: 'Wrong password',
-                      desc:
-                          'Wrong password provided for that user................',
-                      // btnCancelOnPress: () {},
-                      // btnOkOnPress: () {},
-                    )..show();
-
-                    print('Wrong password provided for that user.');
-                  }
-                }
-              }
+              LoginCubit.get(context).LoginsucState(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
@@ -185,8 +121,10 @@ class _BodyLoginState extends State<BodyLogin> {
                         ),
                       );
                     },
-                    child: const Text("SignUp", style: TextStyle(
-                      fontSize: 20,))),
+                    child: const Text("SignUp",
+                        style: TextStyle(
+                          fontSize: 20,
+                        ))),
               ],
             ),
           ),
