@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:shoping/Features/home/presentation/HomeScreen.dart';
+import 'package:shoping/Features/chooseUser/choose_user.dart';
 
 part 'login_state.dart';
 
@@ -28,7 +28,7 @@ class LoginCubit extends Cubit<LoginState> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const HomeScreen(),
+              builder: (context) => const chooseuser(),
             ),
           );
         } else {

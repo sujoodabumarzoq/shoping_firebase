@@ -18,15 +18,16 @@ class HomeScreen extends StatelessWidget {
           Container(
             height: height*0.25,
             width: width,
-            color: const Color(0xff283148),
+            color: Colors.indigo.shade100,
           ),
           appbarhome(width: width),
-          advertisement_homescreen(height: height, width: width),
+          AdvertisementHomeScreen(height: height,width: width),
           list_body(height: height, width: width)
         ],
       ),
     );
   }
+
 }
 
 

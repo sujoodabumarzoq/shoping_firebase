@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shoping/Features/home/presentation/HomeScreen.dart';
+import 'package:shoping/Features/chooseUser/choose_user.dart';
 import 'package:shoping/Features/login/manger/login_cubit.dart';
 import 'package:shoping/Features/login/presentation/login__screen.dart';
 import 'package:shoping/Features/signup/manger/singup_cubit.dart';
@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
         ),
         home: (FirebaseAuth.instance.currentUser != null &&
             FirebaseAuth.instance.currentUser!.emailVerified)
-            ? const HomeScreen()
+            ? const chooseuser()
             : const LoginScreen(),
       ),
     );

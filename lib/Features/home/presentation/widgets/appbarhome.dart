@@ -44,12 +44,12 @@ class appbarhome extends StatelessWidget {
               height: 40,
               width: 40,
               decoration: BoxDecoration(
-                color: Colors.orange,
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: const Icon(
+              child:  Icon(
                 Icons.shopping_cart_outlined,
-                color: Colors.white,
+                color: Colors.indigo.shade400,
               ),
             ),
             SizedBox(
@@ -59,7 +59,7 @@ class appbarhome extends StatelessWidget {
                 height: 40,
                 width: 40,
                 decoration: BoxDecoration(
-                  color: Colors.orange,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child:       IconButton(
@@ -74,9 +74,9 @@ class appbarhome extends StatelessWidget {
                     );
                     // Navigator.of(context).pushReplacementNamed("login");
                   },
-                  icon: const Icon(
+                  icon:  Icon(
                     Icons.exit_to_app,
-                    color: Colors.white,
+                    color: Colors.indigo.shade400,
                   ),
                 )
 
