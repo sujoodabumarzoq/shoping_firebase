@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoping/Features/home/presentation/HomeScreen.dart';
+import 'package:shoping/Features/seller/presentation/sellerscreen.dart';
 
 class Bodychooseuser extends StatefulWidget {
   const Bodychooseuser({Key? key}) : super(key: key);
@@ -23,7 +24,14 @@ class BodychooseuserState extends State<Bodychooseuser> {
         ),
 
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>   sellerscreen(),
+              ),
+            );
+          },
           child: Container(
             height: 70,
             decoration: const BoxDecoration(
@@ -54,7 +62,7 @@ class BodychooseuserState extends State<Bodychooseuser> {
         const SizedBox(
           height: 30,
         ),
-        InkWell(
+        GestureDetector(
           onTap: () {
             Navigator.pushReplacement(
               context,

@@ -20,9 +20,15 @@ class HomeScreen extends StatelessWidget {
             width: width,
             color: Colors.indigo.shade100,
           ),
-          appbarhome(width: width),
-          AdvertisementHomeScreen(height: height,width: width),
-          list_body(height: height, width: width)
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                AppbarHome(width: width),
+                AdvertisementHomeScreen(height: height,width: width),
+                list_body(height: height, width: width),
+              ],
+            ),
+          )
         ],
       ),
     );
