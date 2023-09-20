@@ -15,19 +15,25 @@ class _SignUpState extends State<SignUp> {
       backgroundColor: Colors.white,
       body: Padding(
         padding:
-            const EdgeInsets.only(top: 200, left: 20, right: 20, bottom: 100),
-        child: ListView(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.indigo.shade100,
-                  borderRadius: const BorderRadius.all(Radius.circular(15))),
-              child: const Padding(
-                padding: EdgeInsets.only(top:20,right: 20,bottom: 100,left: 20),
-                child: BodySignUp(),
-              ),
+        const EdgeInsets.only(top: 100, left: 20, right: 20, bottom: 100),
+        child: Center(
+          child: ListView(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.indigo.shade100,
+            borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(50),
+                topRight: Radius.circular(50)
             ),
-          ],
+          ),
+                child: const Padding(
+                  padding: EdgeInsets.only(top:20,right: 20,bottom: 100,left: 20),
+                  child: BodySignUp(),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
